@@ -20,14 +20,14 @@ db.restaurants.find({"grades.score" : {$gte : 90}});
 //9.Escriu una consulta per trobar els restaurants que tenen un score més gran que 80 però menys que 100.
 db.restaurants.find({"grades" : {$elemMatch: { "score" : {$gte : 80 , $lte : 100} } }});
 //10.Escriu una consulta per trobar els restaurants que estan situats en una longitud inferior a -95.754168.
-db.restaurants.find({"address.coord.0" : {$lt : -95.754168}});
+db.restaurants.find({"address.coord.1" : {$lt : -95.754168}});
 //11.Escriu una consulta de MongoDB per a trobar els restaurants que no cuinen menjar 'American ' 
 // i tenen algun score superior a 70 i latitud inferior a -65.754168.
 db.restaurants.find({"cuisine": { $ne : "American " }, "grades.score": { $gt : 70 }, "address.coord.0": { $lt : -65.754168 }});
 //12.Escriu una consulta per trobar els restaurants que no preparen menjar 'American' i tenen algun 
 // score superior a 70 i que, a més, es localitzen en longituds inferiors a -65.754168. 
 // Nota: Fes aquesta consulta sense utilitzar operador $and.
-db.restaurants.find({"cuisine": { $ne : "American " }, "grades.score": { $gt : 70 }, "address.coord.0": { $lt : -65.754168 }});
+db.restaurants.find({"cuisine": { $ne : "American " }, "grades.score": { $gt : 70 }, "address.coord.1": { $lt : -65.754168 }});
 //Es lo mismo que el ejercicio anterior ya que el $and es un operador logico que si no se especifica lo contrario se da como
 //predeterminado.
 
