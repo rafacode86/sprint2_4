@@ -55,28 +55,28 @@ db.restaurants.find({"cuisine": { $in: ["American ", "Chinese"] },"borough": { $
 db.restaurants.find({"borough" : {$in: ["Staten Island", "Queens", "Bronx", "Brooklyn"]}}, {"restaurant_id":1, "name":1, "borough":1, "cuisine":1, "_id":0 });
 //19.Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que 
 // NO pertanyen a Staten Island, Queens, Bronx o Brooklyn.
-
+db.restaurants.find({borough: {$nin:["Staten Island","Queens","Bronx","Brooklyn"]}},{_id:0,restaurant_id:1,name:1,borough:1,cuisine:1})
 //20.Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que 
 // aconsegueixin una nota menor que 10.
-
+db.restaurants.find({ "grades.score": { $lt: 10 } }, { restaurant_id: 1, name: 1, borough: 1, cuisine: 1, _id: 0 })
 //21.Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que 
 // preparen marisc ('seafood') excepte si són 'American ', 'Chinese' o el name del restaurant comença amb lletres 'Wil'.
-
+db.restaurants.find({ cuisine: "Seafood", cuisine: { $nin: ["American ", "Chinese"] }, name: { $not: /^Wil/i }}, { restaurant_id: 1, name: 1, borough: 1, cuisine: 1, _id: 0 })
 //22.Escriu una consulta per trobar el restaurant_id, name i grades per a aquells restaurants que aconsegueixin 
 // un grade de "A" i un score d'11 amb un ISODate "2014-08-11T00:00:00Z".
-
+db.restaurants.find({grades: {$elemMatch: { grade: "A", score: 11, date: ISODate("2014-08-11T00:00:00Z")}}}, { restaurant_id: 1, name: 1, grades: 1, _id: 0 })
 //23.Escriu una consulta per trobar el restaurant_id, name i grades per a aquells restaurants on el 2n element de 
 // l'array de graus conté un grade de "A" i un score 9 amb un ISODate "2014-08-11T00:00:00Z".
-
+db.restaurants.find({ "grades.1.grade": "A", "grades.1.score": 9, "grades.1.date": ISODate("2014-08-11T00:00:00Z")}, { restaurant_id: 1, name: 1, grades: 1, _id: 0 })
 //24.Escriu una consulta per trobar el restaurant_id, name, adreça i ubicació geogràfica per a aquells restaurants 
 // on el segon element de l'array coord conté un valor entre 42 i 52.
-
+db.restaurants.find({"address.coord.1": { $gt: 42, $lt: 52 }}, { restaurant_id: 1, name: 1, address: 1, _id: 0 })
 //25.Escriu una consulta per organitzar els restaurants per nom en ordre ascendent.
-
+db.restaurants.find({}, { restaurant_id: 1, name: 1, borough: 1, cuisine: 1, _id: 0 }).sort({ name: 1 })
 //26.Escriu una consulta per organitzar els restaurants per nom en ordre descendent.
-
+db.restaurants.find({}, { restaurant_id: 1, name: 1, borough: 1, cuisine: 1, _id: 0 }).sort({ name: -1 })
 //27.Escriu una consulta per organitzar els restaurants pel nom de la cuisine en ordre ascendent i pel barri en ordre descendent.
-
+db.restaurants.find({}, { restaurant_id: 1, name: 1, cuisine: 1, borough: 1, _id: 0 }).sort({ cuisine: 1, borough: -1 })
 //28.Escriu una consulta per saber si les direccions contenen el carrer.
 
 //29.Escriu una consulta que seleccioni tots els documents en la col·lecció de restaurants on els valors del camp coord és 
